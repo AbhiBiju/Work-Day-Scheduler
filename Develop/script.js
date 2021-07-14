@@ -61,24 +61,55 @@ for (block of timeBlocks) {
   hourTable.append(currHourRow);
   tableBox.append(hourTable);
 
-  // Text Input for Time Blocks (table with eventlistener, pops up prompt, get value, set to text)
-  // Validation (Cant edit past events/time blocks)
+  console.log(block);
+  console.log(`${block.time}`);
 
   //Past Present Future Color Coding
   var currTime = moment().format("hA");
-  var blockTime = block.time;
+  var blockTime = moment(`${block.time}`);
+  var timeDiff = blockTime.diff(currTime, "hours", true);
+  console.log(timeDiff);
 
   // if(blockTime < currTime) grey color
   //  else if(blockTime === currTime) red color
   //  else if(blockTime > currTime) green color
-  if (currTime < blockTime) {
-    $("textarea").addClass("past")
-  } else if (currTime === blockTime) {
-    $("textarea").addClass("present")
-  } else if (currTime > blockTime) {
-    $("textarea").addClass("future")
+  if (currTime > blockTime) {
+    $("textarea").attr("class", "past");
+    console.group("past");
+    console.log(currTime < blockTime);
+    console.log(currTime);
+    console.log(blockTime);
+    console.log(timeDiff);
+    console.groupEnd();
+  }
+  if (currTime > blockTime) {
+    $("textarea").attr("class", "future");
+    console.group("future");
+    console.log(currTime > blockTime);
+    console.log(currTime);
+    console.log(blockTime);
+    console.log(timeDiff);
+    console.groupEnd();
+  }
+  if (currTime === blockTime) {
+    $("textarea").attr("class", "present");
+    console.group("present");
+    console.log(currTime === blockTime);
+    console.log(currTime);
+    console.log(blockTime);
+    console.log(timeDiff);
+    console.groupEnd();
   }
 }
+
+// Text Input for Time Blocks (table with eventlistener, pops up prompt, get value, set to text)
+// Validation (Cant edit past events/time blocks)
+
+$("textarea").change(function renderText() {
+  var textValue = this.val();
+  console.log(textValue);
+});
+
 //Save Text in Time Blocks with Local Storage
 // use document.on(click .timeBlock)
 // Set textbox value to a variable
