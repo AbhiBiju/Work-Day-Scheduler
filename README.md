@@ -5,4 +5,4 @@ In this challenge, I made a Work Day Scheduler that utilizes jQuery, Local Stora
 The deployed application can be found at: [abhibiju.github.io/work-day-scheduler](https://abhibiju.github.io/work-day-scheduler)
 
 Here is what the website currently looks like:
-![Screenshot of Application](./WDS.png?raw=true "Screenshot of Word Day Scheduler Site")
+![Screenshot of Application](/WDS.png?raw=true "Screenshot of Word Day Scheduler Site")
