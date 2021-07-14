@@ -61,44 +61,49 @@ for (block of timeBlocks) {
   hourTable.append(currHourRow);
   tableBox.append(hourTable);
 
-  console.log(block);
-  console.log(`${block.time}`);
-
   //Past Present Future Color Coding
   var currTime = moment().format("hA");
-  var blockTime = moment(`${block.time}`);
-  var timeDiff = blockTime.diff(currTime, "hours", true);
-  console.log(timeDiff);
+  var blockTime = block.time;
 
   // if(blockTime < currTime) grey color
   //  else if(blockTime === currTime) red color
   //  else if(blockTime > currTime) green color
-  if (currTime > blockTime) {
-    $("textarea").attr("class", "past");
-    console.group("past");
-    console.log(currTime < blockTime);
+
+  if (blockTime < currTime) {
+    $(`#${block.time}`).addClass("past");
+    $(`#${block.time}`).removeClass("future");
+
+    console.log(block);
+    console.log("past");
     console.log(currTime);
-    console.log(blockTime);
-    console.log(timeDiff);
-    console.groupEnd();
+    console.log(block.time);
+    console.log("past check " + (currTime > blockTime));
+    console.log("future check " + (currTime < blockTime));
+    console.log("present check " + (blockTime === currTime));
   }
-  if (currTime > blockTime) {
-    $("textarea").attr("class", "future");
-    console.group("future");
-    console.log(currTime > blockTime);
+  if (blockTime > currTime) {
+    $(`#${block.time}`).addClass("future");
+
+    console.log(block);
+    console.log("future");
     console.log(currTime);
-    console.log(blockTime);
-    console.log(timeDiff);
-    console.groupEnd();
+    console.log(block.time);
+    console.log("past check " + (currTime > blockTime));
+    console.log("future check " + (currTime < blockTime));
+    console.log("present check " + (blockTime === currTime));
   }
-  if (currTime === blockTime) {
-    $("textarea").attr("class", "present");
-    console.group("present");
-    console.log(currTime === blockTime);
+  if (blockTime === currTime) {
+    $(`#${block.time}`).addClass("present");
+    $(`#${block.time}`).removeClass("past");
+    $(`#${block.time}`).removeClass("future");
+
+    console.log(block);
+    console.log("present");
     console.log(currTime);
-    console.log(blockTime);
-    console.log(timeDiff);
-    console.groupEnd();
+    console.log(block.time);
+    console.log("past check " + (currTime > blockTime));
+    console.log("future check " + (currTime < blockTime));
+    console.log("present check " + (currTime === blockTime));
   }
 }
 
