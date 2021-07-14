@@ -6,10 +6,12 @@
  */
 $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
+//Refresh every day
 setInterval(function () {
   $("#currentDay").text(moment().format("dddd, MMMM Do"));
 }, 1000 * 60 * 60 * 24);
 
+//Current Time
 function currTime() {
   var timeSpan = $('<span id="timeNow">');
   var jumbo = $(".jumbotron");
@@ -148,7 +150,7 @@ function colorText() {
         console.log("past check " + (currTime > blockMilitaryTime));
         console.log("future check " + (currTime < blockMilitaryTime));
         console.log("present check " + (currTime === blockMilitaryTime)); 
-      */
+       */
     }
   }
 }
