@@ -4,12 +4,12 @@
    // Format to Day, Month DateOrdinal
    // Update currentDay p with date
  */
+$("#currentDay").text(moment().format("dddd, MMMM Do"));
+
 setInterval(function () {
   $("#currentDay").text(moment().format("dddd, MMMM Do"));
-  $("#currentDay").on("change", function () {
-    $("textarea").empty();
-  });
-}, 1000);
+}, 1000 * 60 * 60 * 24);
+
 function currTime() {
   var timeSpan = $('<span id="timeNow">');
   var jumbo = $(".jumbotron");
@@ -88,6 +88,7 @@ for (block of timeBlocks) {
 //Past Present Future Color Coding
 function colorText() {
   var currTime = moment().format("HH:00");
+  // var currTime = "12:00";
 
   for (block of timeBlocks) {
     /* //Console Logs
@@ -100,10 +101,11 @@ function colorText() {
      if(blockTime < currTime) grey color
      else if(blockTime === currTime) red color
      else if(blockTime > currTime) green color
-    */
+     */
 
     if (currTime > blockMilitaryTime) {
       $(`#${block.id}`).addClass("past");
+      $(`#${block.id}`).attr("readonly", true);
       $(`#${block.id}`).removeClass("present");
       $(`#${block.id}`).removeClass("future");
       /* //Console Logs
@@ -114,10 +116,11 @@ function colorText() {
         console.log("past check " + (currTime > blockMilitaryTime));
         console.log("future check " + (currTime < blockMilitaryTime));
         console.log("present check " + (blockMilitaryTime === currTime));
-      */
+       */
     }
     if (currTime < blockMilitaryTime) {
       $(`#${block.id}`).addClass("future");
+      $(`#${block.id}`).attr("readonly", false);
       $(`#${block.id}`).removeClass("past");
       $(`#${block.id}`).removeClass("present");
 
@@ -133,6 +136,7 @@ function colorText() {
     }
     if (currTime === blockMilitaryTime) {
       $(`#${block.id}`).addClass("present");
+      $(`#${block.id}`).attr("readonly", false);
       $(`#${block.id}`).removeClass("past");
       $(`#${block.id}`).removeClass("future");
 
@@ -154,7 +158,7 @@ setInterval(colorText, 1000 * 60 * 60);
 // Text Input for Time Blocks (table with eventlistener, pops up prompt, get value, set to text)
 // Validation (Cant edit past events/time blocks)
 
-var storageList = JSON.parse(localStorage.getItem("eventList")) || [];
+var storageList = JSON.parse(localStorage.getItem("eventList")) || ["", "", "", "", "", "", "", ""];
 
 function renderText() {
   for (var i = 0; i < storageList.length; i++) {
@@ -178,6 +182,14 @@ $("textarea").on("blur", function () {
   console.log("Changed Box is " + textID + " Changed Value is: " + textValue);
 
   renderText;
+});
+
+var dateP = document.querySelector("#currentDay");
+dateP.addEventListener("DOMNodeInserted", function () {
+  // window.localStorage.clear();
+  storageList = ["", "", "", "", "", "", "", ""];
+  localStorage.setItem("eventList", JSON.stringify(storageList));
+  renderText();
 });
 
 //Add Styles *Dynamically*
