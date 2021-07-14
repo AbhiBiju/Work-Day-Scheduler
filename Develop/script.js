@@ -1,48 +1,71 @@
 //Current Date
-// Get current time with moment()
-// Format to Day, Month DateOrdinal
-// Update currentDay p with date
+/* PseudoCode
+   // Get current time with moment()
+   // Format to Day, Month DateOrdinal
+   // Update currentDay p with date
+ */
 setInterval(function () {
-  $("#currentDay").text(moment().format("dddd, MMMM Do hh:mm A"));
+  $("#currentDay").text(moment().format("dddd, MMMM Do"));
+  $("#currentDay").on("change", function () {
+    $("textarea").empty();
+  });
 }, 1000);
+function currTime() {
+  var timeSpan = $('<span id="timeNow">');
+  var jumbo = $(".jumbotron");
+  setInterval(function () {
+    timeSpan.text(moment().format("hh: mm A"));
+    jumbo.append(timeSpan);
+  }, 1000);
+}
+currTime();
 
 //Time Blocks 9am-5pm (9 10 11 12 1 2 3 4 5)
 var timeBlocks = [
   {
     time: "9AM",
-    event: "",
+    number: "09:00",
+    id: "0",
   },
   {
     time: "10AM",
-    event: "",
+    number: "10:00",
+    id: "1",
   },
   {
     time: "11AM",
-    event: "",
+    number: "11:00",
+    id: "2",
   },
   {
     time: "12PM",
-    event: "",
+    number: "12:00",
+    id: "3",
   },
   {
     time: "1PM",
-    event: "",
+    number: "13:00",
+    id: "4",
   },
   {
     time: "2PM",
-    event: "",
+    number: "14:00",
+    id: "5",
   },
   {
     time: "3PM",
-    event: "",
+    number: "15:00",
+    id: "6",
   },
   {
     time: "4PM",
-    event: "",
+    number: "16:00",
+    id: "7",
   },
   {
     time: "5PM",
-    event: "",
+    number: "17:00",
+    id: "8",
   },
 ];
 
@@ -55,71 +78,107 @@ for (block of timeBlocks) {
   var currHourRow = $(`<tr class="row">`);
 
   currHourRow.append(`<td class="hour">${block.time}`);
-  currHourRow.append(`<textarea id="${block.time}">`);
+  currHourRow.append(`<textarea id="${block.id}">`);
   currHourRow.append(`<button class="saveBtn"><i class="far fa-save">`);
 
   hourTable.append(currHourRow);
   tableBox.append(hourTable);
+}
 
-  //Past Present Future Color Coding
-  var currTime = moment().format("hA");
-  var blockTime = block.time;
+//Past Present Future Color Coding
+function colorText() {
+  var currTime = moment().format("HH:00");
 
-  // if(blockTime < currTime) grey color
-  //  else if(blockTime === currTime) red color
-  //  else if(blockTime > currTime) green color
+  for (block of timeBlocks) {
+    /* //Console Logs
+      console.log(currTime);
+      console.log(currTime > timeBlocks[0].number);
+     */
+    var blockMilitaryTime = block.number;
 
-  if (blockTime < currTime) {
-    $(`#${block.time}`).addClass("past");
-    $(`#${block.time}`).removeClass("future");
+    /* //PseudoCode
+     if(blockTime < currTime) grey color
+     else if(blockTime === currTime) red color
+     else if(blockTime > currTime) green color
+    */
 
-    console.log(block);
-    console.log("past");
-    console.log(currTime);
-    console.log(block.time);
-    console.log("past check " + (currTime > blockTime));
-    console.log("future check " + (currTime < blockTime));
-    console.log("present check " + (blockTime === currTime));
-  }
-  if (blockTime > currTime) {
-    $(`#${block.time}`).addClass("future");
+    if (currTime > blockMilitaryTime) {
+      $(`#${block.id}`).addClass("past");
+      $(`#${block.id}`).removeClass("present");
+      $(`#${block.id}`).removeClass("future");
+      /* //Console Logs
+        console.log(block);
+        console.log("past");
+        console.log(currTime);
+        console.log(block.number);
+        console.log("past check " + (currTime > blockMilitaryTime));
+        console.log("future check " + (currTime < blockMilitaryTime));
+        console.log("present check " + (blockMilitaryTime === currTime));
+      */
+    }
+    if (currTime < blockMilitaryTime) {
+      $(`#${block.id}`).addClass("future");
+      $(`#${block.id}`).removeClass("past");
+      $(`#${block.id}`).removeClass("present");
 
-    console.log(block);
-    console.log("future");
-    console.log(currTime);
-    console.log(block.time);
-    console.log("past check " + (currTime > blockTime));
-    console.log("future check " + (currTime < blockTime));
-    console.log("present check " + (blockTime === currTime));
-  }
-  if (blockTime === currTime) {
-    $(`#${block.time}`).addClass("present");
-    $(`#${block.time}`).removeClass("past");
-    $(`#${block.time}`).removeClass("future");
+      /* //Console Logs
+        console.log(block);
+        console.log("future");
+        console.log(currTime);
+        console.log(block.number);
+        console.log("past check " + (currTime > blockMilitaryTime));
+        console.log("future check " + (currTime < blockMilitaryTime));
+        console.log("present check " + (blockMilitaryTime === currTime));
+       */
+    }
+    if (currTime === blockMilitaryTime) {
+      $(`#${block.id}`).addClass("present");
+      $(`#${block.id}`).removeClass("past");
+      $(`#${block.id}`).removeClass("future");
 
-    console.log(block);
-    console.log("present");
-    console.log(currTime);
-    console.log(block.time);
-    console.log("past check " + (currTime > blockTime));
-    console.log("future check " + (currTime < blockTime));
-    console.log("present check " + (currTime === blockTime));
+      /* //Console Logs
+        console.log(block);
+        console.log("present");
+        console.log(currTime);
+        console.log(block.number);
+        console.log("past check " + (currTime > blockMilitaryTime));
+        console.log("future check " + (currTime < blockMilitaryTime));
+        console.log("present check " + (currTime === blockMilitaryTime)); 
+      */
+    }
   }
 }
+colorText();
+setInterval(colorText, 1000 * 60 * 60);
 
 // Text Input for Time Blocks (table with eventlistener, pops up prompt, get value, set to text)
 // Validation (Cant edit past events/time blocks)
 
-$("textarea").change(function renderText() {
-  var textValue = this.val();
-  console.log(textValue);
-});
+var storageList = JSON.parse(localStorage.getItem("eventList")) || [];
+
+function renderText() {
+  for (var i = 0; i < storageList.length; i++) {
+    $(`#${timeBlocks[i].id}`).val(storageList[i]);
+  }
+}
+renderText();
 
 //Save Text in Time Blocks with Local Storage
-// use document.on(click .timeBlock)
-// Set textbox value to a variable
-// add new value to list
-// save to localStorage
+$("textarea").on("blur", function () {
+  // Set textbox value to a variable
+  var textValue = $(this).val().trim();
+  var textID = $(this).attr("id");
+
+  // add new value to list
+  storageList.splice(textID, 1, textValue);
+
+  // save to localStorage
+  localStorage.setItem("eventList", JSON.stringify(storageList));
+
+  console.log("Changed Box is " + textID + " Changed Value is: " + textValue);
+
+  renderText;
+});
 
 //Add Styles *Dynamically*
 $("head").append(`
