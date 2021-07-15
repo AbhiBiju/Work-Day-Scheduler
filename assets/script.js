@@ -81,7 +81,7 @@ for (block of timeBlocks) {
 
   currHourRow.append(`<td class="hour">${block.time}`);
   currHourRow.append(`<textarea id="${block.id}">`);
-  currHourRow.append(`<button class="saveBtn"><i class="far fa-save">`);
+  currHourRow.append(`<button class="saveBtn ${block.id}"><i class="far fa-save">`);
 
   hourTable.append(currHourRow);
   tableBox.append(hourTable);
@@ -89,8 +89,8 @@ for (block of timeBlocks) {
 
 //Past Present Future Color Coding
 function colorText() {
-  var currTime = moment().format("HH:00");
-  // var currTime = "12:00";
+  // var currTime = moment().format("HH:00");
+  var currTime = "12:00";
 
   for (block of timeBlocks) {
     /* //Console Logs
@@ -170,20 +170,25 @@ function renderText() {
 renderText();
 
 //Save Text in Time Blocks with Local Storage
-$("textarea").on("blur", function () {
+$(".saveBtn").on("click", function () {
   // Set textbox value to a variable
-  var textValue = $(this).val().trim();
-  var textID = $(this).attr("id");
+  var saveID = $(this).attr("class").split(" ").pop();
+  console.log(saveID);
 
-  // add new value to list
-  storageList.splice(textID, 1, textValue);
+  for (block of timeBlocks) {
+    var textValue = $(`textarea[id="${block.id}"]`).val().trim();
+    var blockID = `${block.id}`;
+    // console.log(blockID);
+    if (blockID.match(`${saveID}`)) {
+      // add new value to list
+      storageList.splice(saveID, 1, textValue);
 
-  // save to localStorage
-  localStorage.setItem("eventList", JSON.stringify(storageList));
-
-  console.log("Changed Box is " + textID + " Changed Value is: " + textValue);
-
-  renderText;
+      // save to localStorage
+      localStorage.setItem("eventList", JSON.stringify(storageList));
+      console.log("Changed Box is " + blockID + " Changed Value is: " + textValue);
+    }
+  }
+  renderText();
 });
 
 var dateP = document.querySelector("#currentDay");
