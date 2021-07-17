@@ -107,7 +107,7 @@ function colorText() {
 
     if (currTime > blockMilitaryTime) {
       $(`#${block.id}`).addClass("past");
-      $(`#${block.id}`).attr("readonly", true);
+      // $(`#${block.id}`).attr("readonly", true);
       $(`#${block.id}`).removeClass("present");
       $(`#${block.id}`).removeClass("future");
       /* //Console Logs
@@ -122,7 +122,7 @@ function colorText() {
     }
     if (currTime < blockMilitaryTime) {
       $(`#${block.id}`).addClass("future");
-      $(`#${block.id}`).attr("readonly", false);
+      // $(`#${block.id}`).attr("readonly", false);
       $(`#${block.id}`).removeClass("past");
       $(`#${block.id}`).removeClass("present");
 
@@ -138,7 +138,7 @@ function colorText() {
     }
     if (currTime === blockMilitaryTime) {
       $(`#${block.id}`).addClass("present");
-      $(`#${block.id}`).attr("readonly", false);
+      // $(`#${block.id}`).attr("readonly", false);
       $(`#${block.id}`).removeClass("past");
       $(`#${block.id}`).removeClass("future");
 
