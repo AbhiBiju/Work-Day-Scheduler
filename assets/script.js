@@ -89,8 +89,8 @@ for (block of timeBlocks) {
 
 //Past Present Future Color Coding
 function colorText() {
-  // var currTime = moment().format("HH:00");
-  var currTime = "12:00";
+  var currTime = moment().format("HH:00");
+  // var currTime = "12:00";
 
   for (block of timeBlocks) {
     /* //Console Logs
