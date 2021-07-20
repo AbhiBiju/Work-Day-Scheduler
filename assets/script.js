@@ -9,7 +9,7 @@ $("#currentDay").text(moment().format("dddd, MMMM Do"));
 //Refresh every day
 setInterval(function () {
   $("#currentDay").text(moment().format("dddd, MMMM Do"));
-}, 1000 * 60 * 60 * 24);
+}, 1000 * 60);
 
 //Current Time
 function currTime() {
@@ -73,6 +73,7 @@ var timeBlocks = [
 
 //Make Table Variables
 var tableBox = $(".container");
+
 var hourTable = $("<table>");
 
 //Make Rows for each Time Block
@@ -155,7 +156,7 @@ function colorText() {
   }
 }
 colorText();
-setInterval(colorText, 1000 * 60 * 60);
+setInterval(colorText, 1000 * 60);
 
 // Text Input for Time Blocks (table with eventlistener, pops up prompt, get value, set to text)
 // Validation (Cant edit past events/time blocks)
@@ -188,17 +189,17 @@ $(".saveBtn").on("click", function () {
       console.log("Changed Box is " + blockID + " Changed Value is: " + textValue);
     }
   }
-  renderText();
+  // renderText();
 });
 
-var dateP = document.querySelector("#currentDay");
+/* var dateP = document.querySelector("#currentDay");
 dateP.addEventListener("DOMNodeInserted", function () {
   // window.localStorage.clear();
   storageList = ["", "", "", "", "", "", "", ""];
   localStorage.setItem("eventList", JSON.stringify(storageList));
   renderText();
 });
-
+ */
 //Add Styles *Dynamically*
 $("head").append(`
 <style>
